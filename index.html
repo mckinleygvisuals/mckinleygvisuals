@@ -4,59 +4,162 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MckinleyGVisuals</title>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
+:root{
+--bg:#ffffff;
+--text:#0f0f0f;
+--card:#f5f5f5;
+--border:#e8e8e8;
+}
+
+body.dark{
+--bg:#0b0b0b;
+--text:#ffffff;
+--card:#161616;
+--border:#262626;
+}
+
 *{box-sizing:border-box}
-body{margin:0;background:#0a0a0a;color:white;font-family:Inter}
 
-header{position:sticky;top:0;background:#0f0f0f;border-bottom:1px solid #1d1d1d;display:flex;justify-content:space-between;align-items:center;padding:18px 40px;z-index:100}
-header h2{font-family:Oswald;letter-spacing:1px}
+body{
+margin:0;
+font-family:Inter,sans-serif;
+background:var(--bg);
+color:var(--text);
+transition:.35s;
+}
 
-nav a{margin-left:24px;text-decoration:none;color:white;font-weight:500;opacity:.85}
-nav a:hover{color:#e10600}
+/* NAV */
+header{
+position:sticky;
+top:0;
+backdrop-filter:blur(14px);
+background:rgba(255,255,255,.7);
+border-bottom:1px solid var(--border);
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 40px;
+z-index:100;
+}
 
-.hero{height:75vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+body.dark header{background:rgba(10,10,10,.7)}
 
-.hero-slide{position:absolute;width:100%;height:100%;background-size:cover;background-position:center;opacity:0;transition:1s}
-.hero-slide.active{opacity:.35}
+header h2{font-family:"Space Grotesk";font-weight:700}
 
-.hero-content{position:relative;z-index:2}
+nav a{margin-left:26px;text-decoration:none;color:var(--text);opacity:.8;font-weight:500}
+nav a:hover{opacity:1}
 
-.hero h1{font-family:Oswald;font-size:64px;margin-bottom:10px}
-.hero p{opacity:.8;margin-bottom:25px}
+/* HERO SHOWCASE */
+.hero{
+padding:120px 40px 80px;
+text-align:center;
+}
 
-.button{background:#e10600;padding:14px 28px;border-radius:5px;text-decoration:none;color:white;font-weight:600}
+.hero h1{
+font-family:"Space Grotesk";
+font-size:64px;
+margin-bottom:12px;
+animation:fadeUp 1s ease;
+}
 
-.section{padding:70px 40px;max-width:1200px;margin:auto}
-.section h2{font-family:Oswald;margin-bottom:25px}
+.hero p{opacity:.7;margin-bottom:28px;animation:fadeUp 1.3s ease}
 
-.filters button{margin-right:10px;padding:8px 16px;background:#1a1a1a;border:none;color:white;border-radius:4px;cursor:pointer}
-.filters button:hover{background:#e10600}
+.hero-scroll{
+display:flex;
+gap:20px;
+overflow:hidden;
+margin-top:60px;
+}
 
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px}
+.hero-track{
+display:flex;
+gap:20px;
+animation:scroll 40s linear infinite;
+}
 
-.card{background:#111;border-radius:8px;overflow:hidden;cursor:pointer;transition:.25s}
-.card:hover{transform:translateY(-6px)}
+.hero-track img{
+height:220px;
+border-radius:14px;
+}
+
+/* SECTIONS */
+.section{padding:80px 40px;max-width:1200px;margin:auto}
+.section h2{font-family:"Space Grotesk";margin-bottom:30px}
+
+/* FILTER */
+.filters{margin-bottom:25px}
+.filters button{
+padding:8px 16px;
+border:none;
+border-radius:30px;
+background:var(--card);
+margin-right:10px;
+cursor:pointer;
+}
+
+/* MASONRY GRID */
+.grid{column-count:3;column-gap:22px}
+@media(max-width:900px){.grid{column-count:2}}
+@media(max-width:600px){.grid{column-count:1}}
+
+.card{
+break-inside:avoid;
+margin-bottom:22px;
+background:var(--card);
+border-radius:16px;
+overflow:hidden;
+cursor:pointer;
+transition:.35s;
+}
+
+.card:hover{transform:scale(1.04) translateY(-4px)}
+
 .card img{width:100%;display:block}
-.card h3{padding:12px;font-size:14px}
+.card h3{padding:14px;font-size:14px}
 
-.modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center}
+/* MODAL */
+.modal{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.92);
+display:none;
+align-items:center;
+justify-content:center;
+}
 .modal img{max-width:90%;max-height:90%}
 
-form{display:grid;gap:14px;max-width:520px}
-input,textarea,select{padding:12px;border:none;border-radius:5px;background:#161616;color:white}
-textarea{min-height:120px}
+/* SETTINGS */
+.settings{
+position:fixed;
+right:20px;
+bottom:20px;
+background:var(--card);
+border:1px solid var(--border);
+padding:16px;
+border-radius:12px;
+}
 
-footer{margin-top:80px;padding:40px;text-align:center;border-top:1px solid #1e1e1e;color:#888}
+.settings button{
+padding:8px 14px;border:none;border-radius:6px;background:var(--text);color:var(--bg);cursor:pointer}
 
-#adminPanel{display:none;position:fixed;bottom:20px;right:20px;background:#111;padding:20px;border-radius:8px;width:280px;border:1px solid #222}
+footer{padding:40px;text-align:center;opacity:.6}
 
-.adminBtn{position:fixed;bottom:20px;left:20px;background:#e10600;border:none;color:white;padding:12px 18px;border-radius:6px;cursor:pointer}
+/* ANIMATIONS */
+@keyframes fadeUp{
+0%{opacity:0;transform:translateY(40px)}
+100%{opacity:1;transform:translateY(0)}
+}
 
-@media(max-width:700px){
-.hero h1{font-size:40px}
-nav{display:none}
+@keyframes scroll{
+0%{transform:translateX(0)}
+100%{transform:translateX(-50%)}
 }
 </style>
 </head>
@@ -67,28 +170,30 @@ nav{display:none}
 <h2>MCKINLEYGVISUALS</h2>
 <nav>
 <a href="#home">Home</a>
-<a href="#about">About</a>
 <a href="#gallery">Gallery</a>
-<a href="#order">Order</a>
+<a href="#about">About</a>
 <a href="#contact">Contact</a>
 </nav>
 </header>
 
 <section class="hero" id="home">
-
-<div class="hero-slide active" style="background-image:url('images/hero1.jpg')"></div>
-<div class="hero-slide" style="background-image:url('images/hero2.jpg')"></div>
-<div class="hero-slide" style="background-image:url('images/hero3.jpg')"></div>
-
-<div class="hero-content">
-<h1>Sports Graphic Design</h1>
+<h1>Modern Sports Graphics</h1>
 <p>Commitment edits • Posters • Athlete visuals</p>
-<a class="button" href="#order">Order a Graphic</a>
+
+<div class="hero-scroll">
+<div class="hero-track">
+<img src="images/post1.jpg">
+<img src="images/post2.jpg">
+<img src="images/post3.jpg">
+<img src="images/post1.jpg">
+<img src="images/post2.jpg">
+<img src="images/post3.jpg">
+</div>
 </div>
 
 </section>
 
-<section class="section">
+<section class="section" id="gallery">
 <h2>Latest Graphics</h2>
 
 <div class="filters">
@@ -104,34 +209,7 @@ nav{display:none}
 
 <section class="section" id="about">
 <h2>About</h2>
-<p>MckinleyGVisuals creates modern sports edits, commitment graphics, and posters for athletes and teams. The design style blends minimal layouts with bold sports media visuals.</p>
-</section>
-
-<section class="section" id="gallery">
-<h2>Featured Work</h2>
-<div class="grid">
-<img src="images/sample1.jpg">
-<img src="images/sample2.jpg">
-<img src="images/sample3.jpg">
-</div>
-</section>
-
-<section class="section" id="order">
-<h2>Order a Graphic</h2>
-<form>
-<input placeholder="Name" required>
-<input placeholder="Team / School">
-<select>
-<option>Football</option>
-<option>Basketball</option>
-<option>Wrestling</option>
-<option>Other</option>
-</select>
-<input placeholder="Player Name">
-<input placeholder="Graphic Type">
-<textarea placeholder="Details"></textarea>
-<button class="button">Submit Order</button>
-</form>
+<p>MckinleyGVisuals designs athlete edits, commitment graphics, and modern sports posters for teams, athletes, and sports media pages.</p>
 </section>
 
 <section class="section" id="contact">
@@ -148,34 +226,28 @@ nav{display:none}
 <img id="modalImg">
 </div>
 
-<div id="adminPanel">
-<h3>Add Graphic</h3>
-<input id="adminTitle" placeholder="Graphic Title">
-<select id="adminSport">
-<option value="football">Football</option>
-<option value="basketball">Basketball</option>
-<option value="wrestling">Wrestling</option>
-</select>
-<input type="file" id="adminImage">
-<button class="button" onclick="addPost()" style="width:100%;margin-top:10px">Upload</button>
+<div class="settings">
+<button onclick="toggleTheme()">Toggle Theme</button>
 </div>
-
-<button class="adminBtn" onclick="toggleAdmin()">Admin</button>
 
 <script>
 
-/* HERO AUTO SLIDER */
-let slides=document.querySelectorAll('.hero-slide');
-let slideIndex=0;
+/* THEME */
+if(localStorage.getItem("theme")==="dark"){
+document.body.classList.add("dark");
+}
 
-setInterval(()=>{
-slides[slideIndex].classList.remove('active');
-slideIndex=(slideIndex+1)%slides.length;
-slides[slideIndex].classList.add('active');
-},4000);
+function toggleTheme(){
+if(document.body.classList.contains("dark")){
+document.body.classList.remove("dark");
+localStorage.setItem("theme","light");
+}else{
+document.body.classList.add("dark");
+localStorage.setItem("theme","dark");
+}
+}
 
 /* POSTS */
-
 let posts=[
 {title:"Commitment Edit",sport:"football",img:"images/post1.jpg"},
 {title:"Game Day Poster",sport:"basketball",img:"images/post2.jpg"},
@@ -187,12 +259,10 @@ const feed=document.getElementById("postFeed");
 feed.innerHTML="";
 
 list.slice().reverse().forEach(p=>{
-
 const card=document.createElement("div");
 card.className="card";
 card.innerHTML=`<img src="${p.img}"><h3>${p.title}</h3>`;
 card.onclick=()=>openModal(p.img);
-
 feed.appendChild(card);
 });
 }
@@ -202,45 +272,17 @@ if(sport==='all'){loadPosts(posts);return}
 loadPosts(posts.filter(p=>p.sport===sport));
 }
 
+/* MODAL */
 function openModal(src){
-modal.style.display='flex';
+modal.style.display="flex";
 modalImg.src=src;
 }
 
 function closeModal(){
-modal.style.display='none';
-}
-
-/* ADMIN */
-
-function toggleAdmin(){
-let p=document.getElementById('adminPanel');
-p.style.display=p.style.display==='block'?'none':'block';
-}
-
-function addPost(){
-let title=document.getElementById('adminTitle').value;
-let sport=document.getElementById('adminSport').value;
-let file=document.getElementById('adminImage').files[0];
-
-if(!title||!file){alert('Add title and image');return}
-
-let reader=new FileReader();
-reader.onload=e=>{
-posts.push({title:title,sport:sport,img:e.target.result});
-loadPosts(posts);
-};
-reader.readAsDataURL(file);
+modal.style.display="none";
 }
 
 loadPosts(posts);
-
-/* INFINITE SCROLL EFFECT */
-window.addEventListener('scroll',()=>{
-if(window.innerHeight+window.scrollY>=document.body.offsetHeight-200){
-loadPosts(posts);
-}
-});
 
 </script>
 
